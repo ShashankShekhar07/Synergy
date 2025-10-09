@@ -34,7 +34,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend.onrender.com"],
+  origin: ["http://localhost:5173", "https://synergy-sha.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
