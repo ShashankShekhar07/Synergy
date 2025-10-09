@@ -6,7 +6,7 @@ import {
   CreateCommentData 
 } from '../types/support';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://synergy-1-zose.onrender.com/api';
 
 export const supportService = {
   // Get all tickets

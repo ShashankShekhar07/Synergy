@@ -29,7 +29,7 @@ export function AIResourcePrioritization() {
   useEffect(() => {
     const fetchAnalysis = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/resource-plans/analyze');
+        const response = await axios.get('https://synergy-1-zose.onrender.com/api/resource-plans/analyze');
         setAnalyzedRequests(response.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error fetching analysis');

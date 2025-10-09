@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { StateProgress, KeyMetrics, TransitionTrend, Insight } from '../types/progress';
 
-const API_BASE_URL = 'http://localhost:3000/api/progress';
+const API_BASE_URL = 'https://synergy-1-zose.onrender.com/api/progress';
 
 // Function to get the Bearer token
 const getAuthToken = () => {

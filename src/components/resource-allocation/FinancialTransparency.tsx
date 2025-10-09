@@ -306,7 +306,7 @@
 //     }
 //     console.log(newFunding);
 //     try {
-//       const response = await fetch('http://localhost:3000/api/resource-plans/addFundingSource', {
+//       const response = await fetch('https://synergy-1-zose.onrender.com/api/resource-plans/addFundingSource', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -544,7 +544,7 @@
 //       return;
 //     }
 //     try {
-//       const response = await fetch('http://localhost:3000/api/resource-plans/addFundingSource', {
+//       const response = await fetch('https://synergy-1-zose.onrender.com/api/resource-plans/addFundingSource', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -802,7 +802,7 @@ export function FinancialTransparency() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/resource-plans/addFundingSource', {
+      const response = await fetch('https://synergy-1-zose.onrender.com/api/resource-plans/addFundingSource', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/resources';
+const API_URL = 'https://synergy-1-zose.onrender.com/api/resources';
 
 interface ResourceData {
   title: string;

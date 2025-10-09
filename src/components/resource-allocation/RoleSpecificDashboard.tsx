@@ -528,7 +528,7 @@ export function RoleSpecificDashboard() {
   const fetchDashboardData = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/resource-plans/school-dashboard/',
+        'https://synergy-1-zose.onrender.com/api/resource-plans/school-dashboard/',
         { schoolUdiseCode: user?.schoolId }
       );
       setDashboardData(response.data);
@@ -564,7 +564,7 @@ export function RoleSpecificDashboard() {
     console.log(formData);
     try {
       const response = await fetch(
-        'http://localhost:3000/api/resource-plans/insert-resource-request/',
+        'https://synergy-1-zose.onrender.com/api/resource-plans/insert-resource-request/',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

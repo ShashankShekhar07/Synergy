@@ -173,7 +173,7 @@ export function ChatbotInterface() {
 
     try {
       // Make API call to backend
-      const response = await axios.post('http://localhost:3000/api/test/analyze/', {
+      const response = await axios.post('https://synergy-1-zose.onrender.com/api/test/analyze/', {
         question: input,
       });
 
