@@ -2,7 +2,7 @@
 Empowering Schools. Enabling Change.
 
 ## 🌟 Overview
-EduSphere is a transformative platform designed to bridge gaps in education infrastructure by analyzing school structures, suggesting solutions, and providing resources for improvement. It leverages cutting-edge AI to ensure schools transition seamlessly into standardized frameworks, optimizing educational outcomes and policy implementation.
+Synergy is a transformative platform designed to bridge gaps in education infrastructure by analyzing school structures, suggesting solutions, and providing resources for improvement. It leverages cutting-edge AI to ensure schools transition seamlessly into standardized frameworks, optimizing educational outcomes and policy implementation.
 
 Whether you’re an administrator, policymaker, teacher, or community member, EduSphere empowers you with tools, insights, and collaborative features to drive impactful change.
 
