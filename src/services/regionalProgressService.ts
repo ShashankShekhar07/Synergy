@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { RegionalMetrics, StateComparison, RegionalChallenge, RegionalGoal } from '../types/progress';
 
-const API_BASE_URL = 'https://synergy-1-zose.onrender.com/api/regional-progress';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_LINK + '/api/regional-progress';
 
 // Function to get the Bearer token
 const getAuthToken = () => {

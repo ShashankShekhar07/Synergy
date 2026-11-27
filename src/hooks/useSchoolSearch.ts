@@ -19,6 +19,7 @@ export function useSchoolSearch() {
   const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
+    let stale = false;
     const fetchSchools = async () => {
       try {
         setLoading(true);
@@ -28,17 +29,22 @@ export function useSchoolSearch() {
           filters,
           currentPage
         );
+        if (stale) return;
         setSchools(schools);
         setTotalResults(total);
       } catch (err) {
+        if (stale) return;
         setError(err instanceof Error ? err.message : 'An error occurred while fetching schools');
       } finally {
-        setLoading(false);
+        if (!stale) setLoading(false);
       }
     };
 
     const debounceTimer = setTimeout(fetchSchools, 300);
-    return () => clearTimeout(debounceTimer);
+    return () => {
+      stale = true;
+      clearTimeout(debounceTimer);
+    };
   }, [searchTerm, filters, currentPage]);
 
   return {

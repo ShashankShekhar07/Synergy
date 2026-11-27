@@ -1,10 +1,31 @@
 import School from '../models/School.js';
 import { validationResult } from 'express-validator';
 
-// Get a list of all schools
 export const getAllSchools = async (req, res) => {
   try {
-    const schools = await School.find();
+    const { search = "", page = 1, limit = 100 } = req.query;
+
+    const pageNum = Math.max(parseInt(page, 10) || 1, 1);
+    const limitNum = Math.max(parseInt(limit, 10) || 10, 1);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Escape regex special chars so "J.H.S" doesn't break the pattern
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const searchRegex = new RegExp(escapeRegex(search), "i");
+
+    const filter = search
+      ? {
+          $or: [
+            { name: searchRegex },
+            { state: searchRegex },
+            { district: searchRegex },
+            { schoolUDISECode: searchRegex },
+          ],
+        }
+      : {};
+
+    const schools = await School.find(filter);
+
     res.json(schools);
   } catch (error) {
     res.status(500).json({ message: error.message });

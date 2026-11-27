@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://synergy-1-zose.onrender.com/api/school-progress';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_LINK + '/api/school-progress';
 
 // Function to get the Bearer token
 const getAuthToken = () => {

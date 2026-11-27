@@ -6,7 +6,7 @@ import {
   CreateCommentData 
 } from '../types/support';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api';
 
 export const supportService = {
   // Get all tickets

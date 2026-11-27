@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Policy } from '../types/policy';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api';
 
 export const policyService = {
   // Get all policies with optional filters

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Challenge, ChallengeMetrics } from '../types/challenges';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api/challenges';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api/challenges';
 
 export const challengesService = {
   async getChallenges(): Promise<{ challenges: Challenge[]; metrics: ChallengeMetrics }> {

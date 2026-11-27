@@ -46,7 +46,7 @@ export function PublicResourceDashboard() {
     try {
       console.log("Feedback Submitted:", data);
       const response = await axios.post(
-        "https://synergy-1-zose.onrender.com/api/resource-plans/feedback/",
+        import.meta.env.VITE_BACKEND_LINK + "/api/resource-plans/feedback/",
         data
       );
       console.log("Backend Response:", response.data);
@@ -76,7 +76,7 @@ export function PublicResourceDashboard() {
   const fetchFeedback = async () => {
     try {
       const response = await axios.get(
-        "https://synergy-1-zose.onrender.com/api/resource-plans/feedback/"
+        import.meta.env.VITE_BACKEND_LINK + "/api/resource-plans/feedback/"
       );
       const mappedFeedback: CommunityFeedback[] = response.data.map(
         (item: any) => ({
@@ -100,7 +100,7 @@ export function PublicResourceDashboard() {
     const fetchAllocationData = async () => {
       try {
         const response = await axios.get(
-          "https://synergy-1-zose.onrender.com/api/resource-plans/allocation-utilization/"
+          import.meta.env.VITE_BACKEND_LINK + "/api/resource-plans/allocation-utilization/"
         );
         setAllocationData(response.data);
       } catch (err) {
@@ -116,7 +116,7 @@ export function PublicResourceDashboard() {
     const fetchDistributionData = async () => {
       try {
         const response = await axios.get(
-          "https://synergy-1-zose.onrender.com/api/resource-plans/getdistribution"
+          import.meta.env.VITE_BACKEND_LINK + "/api/resource-plans/getdistribution"
         );
         if (response.data.success) {
           setDistributionData(response.data.distributionData);

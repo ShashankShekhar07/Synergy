@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ResourceUtilization, CombinedResourceData, OverviewMetrics } from '../types/reports';
 
-const API_BASE_URL = 'https://synergy-1-zose.onrender.com/api/resource';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_LINK + '/api/resource';
 
 export const resourceReportsService = {
   async fetchResourceRequests() {

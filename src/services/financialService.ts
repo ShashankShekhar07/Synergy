@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://synergy-1-zose.onrender.com/api/resource-plans';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_LINK + '/api/resource-plans';
 
 export interface BudgetOverview {
   total_budget: number;

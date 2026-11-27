@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "server": "node server/index.js",
     "dev:server": "nodemon server/index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "debug": "node --inspect index.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
