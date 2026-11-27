@@ -105,7 +105,7 @@ export function ResourceAllocationMap({
     const fetchLocations = async () => {
       try {
         const response = await axios.get(
-          "https://synergy-1-zose.onrender.com/api/resource-plans/resourcemap"
+          import.meta.env.VITE_BACKEND_LINK + "/api/resource-plans/resourcemap"
         );
         console.log("locations", response.data);
         setLocations(response.data);

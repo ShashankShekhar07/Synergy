@@ -1,6 +1,6 @@
 import { LoginCredentials, RegisterData } from '../types/auth';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api/auth';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api/auth';
 
 export const authService = {
   login: async (credentials: LoginCredentials) => {

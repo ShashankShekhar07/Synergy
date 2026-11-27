@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api/resources';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api/resources';
 
 interface ResourceData {
   title: string;

@@ -17,7 +17,7 @@ import { SchoolDetailsFields } from "./form-sections/SchoolDetailsFields";
 import { InfrastructureFields } from "./form-sections/InfrastructureFields";
 import { TeacherFields } from "./form-sections/TeacherFields";
 import { EnrollmentFields } from "./form-sections/EnrollmentFields";
-import { AIAnalysisResult } from "./AIAnalysisResult";
+import { AIAnalysisResult } from "./AIAnalysisResult.jsx";
 import { useAutoSave } from "../../hooks/useAutoSave";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -55,7 +55,7 @@ export function AnalysisForm() {
 
       // Make the POST request with the parsed object
       const response = await axios.post(
-        "https://synergy-1-zose.onrender.com/api/school/details/insertschool",
+        import.meta.env.VITE_BACKEND_LINK + "/api/school/details/insertschool",
         obj
       );
 
@@ -101,7 +101,7 @@ export function AnalysisForm() {
 
       // Use the data directly for the POST request
       const response = await axios.post(
-        "https://synergy-1-zose.onrender.com/api/v1/school/insertschool",
+        import.meta.env.VITE_BACKEND_LINK + "/api/v1/school/insertschool",
         data // Directly pass the data from the form
       );
 

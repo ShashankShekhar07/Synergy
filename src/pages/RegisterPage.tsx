@@ -16,7 +16,7 @@ export function RegisterPage() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('https://synergy-1-zose.onrender.com/api/auth/register', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_LINK + '/api/auth/register', {
         method: 'POST',
         body: data instanceof FormData ? data : JSON.stringify(data),
         headers: data instanceof FormData ? undefined : {

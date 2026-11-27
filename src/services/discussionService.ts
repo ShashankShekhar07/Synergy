@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Discussion, NewDiscussion, Reply } from '../types/discussion';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api';
 
 // Helper to get token from localStorage
 const getToken = () => localStorage.getItem('token');

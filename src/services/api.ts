@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://synergy-1-zose.onrender.com/api'
+  baseURL: import.meta.env.VITE_BACKEND_LINK + '/api'
 });
 
 // Add token to requests if it exists

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Training } from '../types/support';
 import { TopicStatus } from '../components/support/training/TopicProgress';
 
-const API_URL = 'https://synergy-1-zose.onrender.com/api/training';
+const API_URL = import.meta.env.VITE_BACKEND_LINK + '/api/training';
 
 export function useTraining() {
   const [trainings, setTrainings] = useState<Training[]>([]);

@@ -15,7 +15,7 @@ export function LoginPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://synergy-1-zose.onrender.com/api/auth/login', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_LINK + '/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
