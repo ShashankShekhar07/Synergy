@@ -20,8 +20,6 @@ async function verifyGeminiApiKey(apiKey) {
 }
 
 
-console.log(process.env.GEMINI_API_KEY);
-
 // Run test
 (async () => {
   try {

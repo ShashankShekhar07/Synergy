@@ -1,6 +1,6 @@
 import School from '../models/School.js';
 import SchoolProgress from '../models/SchoolProgress.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 // Import mongoose instead of requiring it
 import mongoose from 'mongoose';
 
@@ -176,12 +176,6 @@ function calculateComplianceScore(schoolData) {
 
 async function generateRecommendations(school) {
   try {
-    const client = new GoogleGenerativeAI(
-      'process.env.GEMINI_API_KEY'
-    );
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
-
     const prompt = `
       Return ONLY a valid JSON array containing 3-4 specific recommendations based on analyzing this school data:
       ${JSON.stringify({
@@ -205,8 +199,7 @@ async function generateRecommendations(school) {
     `;
 
 
-    const result = await model.generateContent(prompt);
-    let responseText = result.response.text();
+    let responseText = await generateText(prompt);
 
 
     // More aggressive cleaning
@@ -262,12 +255,6 @@ async function generateRecommendations(school) {
 }
 async function generateMilestones(recommendations) {
   try {
-    const client = new GoogleGenerativeAI(
-      process.env.GEMINI_API_KEY
-    );
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
-
     const prompt = `
       You must return ONLY a valid JSON array containing 4-6 milestones based on these recommendations:
       ${JSON.stringify(recommendations)}
@@ -283,8 +270,7 @@ async function generateMilestones(recommendations) {
       Do not include any explanatory text, markdown, or formatting - ONLY the JSON array.
     `;
 
-    const result = await model.generateContent(prompt);
-    let responseText = result.response.text();
+    let responseText = await generateText(prompt);
 
     // More aggressive cleaning
     responseText = responseText
@@ -336,10 +322,6 @@ export const getRecentActivity = async (req, res) => {
 
     console.log('School history:', school.history);
 
-    const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
-
     // Add retry logic
     const maxRetries = 3;
     let activities = [];
@@ -363,8 +345,7 @@ export const getRecentActivity = async (req, res) => {
           }
         `;
 
-        const result = await model.generateContent(prompt);
-        const responseText = result.response.text();
+        const responseText = await generateText(prompt);
         console.log('Raw Gemini response:', responseText);
 
         // Clean response

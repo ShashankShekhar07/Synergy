@@ -1,6 +1,6 @@
 import School from '../models/School.js';
 import RegionalGoal from '../models/RegionalProgress.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 
 // Get regional metrics for a specific state
 export const getRegionalMetrics = async (req, res) => {
@@ -169,9 +169,6 @@ function calculateHistoricalRegionalMetrics(schools, date) {
 
 async function analyzeRegionalChallenges(schools) {
   try {
-    const client = new GoogleGenerativeAI('process.env.GEMINI_API_KEY');
-    const model = client.getGenerativeModel({ model: 'gemini-2.0-pro' });
-
     const prompt = `
       Analyze the following school data and identify the top 3 challenges in these categories:
       1. Infrastructure Gap
@@ -196,8 +193,7 @@ async function analyzeRegionalChallenges(schools) {
       ]
     `;
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
     
     // Clean up the response text
     let cleanedResponse = responseText

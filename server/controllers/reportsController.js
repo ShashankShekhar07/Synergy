@@ -1,14 +1,11 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import Report from '../models/Report.js';
+import { generateText } from '../services/gemini.js';
 import School from '../models/School.js';
 import { generatePDF } from '../utils/pdfGenerator.js';
 
 
 export const generateReport = async (req, res) => {
   try {
-    const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
     const { type, customMetrics } = req.body;
     
     const schools = await School.find();
@@ -54,8 +51,7 @@ export const generateReport = async (req, res) => {
     
     Ensure the report is detailed, data-driven, and provides actionable insights.`;
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
     console.log(responseText);
     let cleanedResponse = responseText
       .replace(/```json\n?/g, '')
@@ -156,10 +152,7 @@ export const downloadReport = async (req, res) => {
 export const createCustomReport = async (req, res) => {
   try {
     const { title, description, type, metrics } = req.body;
-    
-    const client = new GoogleGenerativeAI('process.env.GEMINI_API_KEY');
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
+
     const schools = await School.find();
     
     const prompt = `Generate a custom report titled "${title}" with the following description: "${description}". 
@@ -185,8 +178,7 @@ export const createCustomReport = async (req, res) => {
     
     School Data: ${JSON.stringify(schools)}`;
 
-     const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
 
     let cleanedResponse = responseText
       .replace(/```json\n?/g, '')

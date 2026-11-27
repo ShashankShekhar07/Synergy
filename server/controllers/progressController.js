@@ -1,6 +1,6 @@
 import { Pen } from 'lucide-react';
 import School from '../models/School.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 
 // Get state-wise progress data for map
 export const getStateProgress = async (req, res) => {
@@ -289,10 +289,6 @@ function calculateMonthlyTrends(schools) {
 
 async function generateInsights(schools) {
   try {
-    const client = new GoogleGenerativeAI('process.env.GEMINI_API_KEY');
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL});
-
     const prompt = `
       You are EduBot, an AI assistant helping users navigate the education portal. Based on the following school data, generate key insights in the exact JSON format below without any additional text, code blocks, or formatting:
     
@@ -308,10 +304,7 @@ async function generateInsights(schools) {
       ${JSON.stringify(schools)}
     `;
 
-    const result = await model.generateContent(prompt);
-
-    // Parse the generated content into JSON
-    const responseText = result.response.text().replace(/```json|```/g, '').trim();
+    const responseText = (await generateText(prompt)).replace(/```json|```/g, '').trim();
     const insights = JSON.parse(responseText);
     return insights;
   } catch (error) {

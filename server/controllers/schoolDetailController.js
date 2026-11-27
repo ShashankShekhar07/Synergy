@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import SchoolDetail from '../models/SchoolDetail.js';
 import axios from 'axios';
 import School from '../models/School.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 
 export const createSchoolDetail = async (req, res) => {
   try {
@@ -15,17 +15,11 @@ export const createSchoolDetail = async (req, res) => {
       school_id: schoolID,
     };
 
-
-console.log('APIKEY ', process.env.GEMINI_API_KEY);
-  const response = await axios.post(dataUrl, sending);
+    const response = await axios.post(dataUrl, sending);
     //if error response or reponse time more than 30 sec abort and send return erro message
     
     const schoolData = response.data;
     console.log('schoolData',schoolData);
- 
-
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
 
     const prompt = `
     STRICT DATA EXTRACTION AND GENERATION INSTRUCTIONS:
@@ -369,8 +363,7 @@ console.log('APIKEY ', process.env.GEMINI_API_KEY);
       - JUST RETURN THE JSON OBJECT AND DON'T TAKE MUCH TIME
     `;
     // const prompt=  `Hi`;
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
     console.log('response', responseText);
     
     // Clean up the response text

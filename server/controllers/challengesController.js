@@ -1,11 +1,8 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import Challenge from '../models/Challenge.js';
 import ChallengeMetrics from '../models/ChallengeMetrics.js';
 import School from '../models/School.js';
+import { generateText } from '../services/gemini.js';
 
-
-console.log(process.env.GEMINI_API_KEY);
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 export const getChallenges = async (req, res) => {
   try {
     const challenges = await Challenge.find().sort({ createdAt: -1 });
@@ -75,15 +72,6 @@ export const deleteChallenge = async (req, res) => {
 
 export const analyzeSchoolData = async (req, res) => {
   try {
-
-    const client = new GoogleGenerativeAI(
-        process.env.GEMINI_API_KEY
-      );
-
-
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
-
     const schools = await School.find();
 
     // Prepare school data for analysis
@@ -135,8 +123,7 @@ export const analyzeSchoolData = async (req, res) => {
     // `;
 
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
     let cleanedResponse = responseText
       .replace(/```json\n?/g, '')
       .replace(/```\n?/g, '')

@@ -6,7 +6,7 @@ import budget from '../models/resource-allocation/budget.js';
 import ResourceAllocation from '../models/resource-allocation/ResourceAllocation.js';
 // import Budget from '../models/Budget.js';
 import fundingSource from '../models/resource-allocation/fundingSource.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 import SchoolDetail from '../models/SchoolDetail.js';
 import School from "../models/School.js";
 
@@ -481,12 +481,6 @@ export const modifyResourceRequest = async (req, res) => {
 export const findResourceMatches = async (req, res) => {
   try {
     const { schoolId } = req.params;
-    const client = new GoogleGenerativeAI(
-      process.env.GEMINI_API_KEY
-    );
-
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
     // Get requesting school details
     const requestingSchool = await SchoolDetail.findOne({ schoolID: schoolId });
     if (!requestingSchool) {
@@ -561,8 +555,7 @@ export const findResourceMatches = async (req, res) => {
       4. Resource availability and utilization
     `;
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
     console.log('Response from Gemini:', responseText);
     let cleanedResponse = responseText
       .replace(/```json\n?/g, '')
@@ -1060,12 +1053,6 @@ export const getschooldistribution = async (req, res) => {
 
 export const analyzeResourceRequests = async (req, res) => {
   try {
-    const client = new GoogleGenerativeAI(
-      'process.env.GEMINI_API_KEY'
-    );
-
-    // const model = client.getGenerativeModel({ model: 'gemini-2.5-flash		' });
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
     // Get all resource requests
     const requests = await ResourceRequest.find();
     const analyzedRequests = [];
@@ -1123,8 +1110,7 @@ export const analyzeResourceRequests = async (req, res) => {
       `;
 
 
-      const result = await model.generateContent(prompt);
-      const responseText = result.response.text();
+      const responseText = await generateText(prompt);
       let cleanedResponse = responseText
         .replace(/```json\n?/g, '')
         .replace(/```\n?/g, '')

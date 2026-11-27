@@ -1,6 +1,6 @@
 import School from '../models/School.js';
 import ComparativeProgress from '../models/ComparativeProgress.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateText } from '../services/gemini.js';
 
 export const getComparativeAnalysis = async (req, res) => {
   try {
@@ -207,11 +207,6 @@ function calculateScoreChange(performer, schools) {
 async function generateInsights(schools, type) {
   console.log('Generating insights for:', type, schools);
   try {
-    const client = new GoogleGenerativeAI(
-      'process.env.GEMINI_API_KEY'
-    );
-    const model = client.getGenerativeModel({ model: 'gemini-2.0-pro' });
-
     const prompt = `
     Analyze this school data and provide insights in the following JSON format:
     {
@@ -232,8 +227,7 @@ async function generateInsights(schools, type) {
     School data: ${JSON.stringify(schools)}
   `;
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const responseText = await generateText(prompt);
 
     // Clean up the response text
     let cleanedResponse = responseText

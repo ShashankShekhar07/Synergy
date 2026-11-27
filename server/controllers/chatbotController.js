@@ -1,5 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import SchoolDetail from '../models/SchoolDetail.js';
+import { generateText } from '../services/gemini.js';
 
 // Controller to handle PDF-based chatbot interaction
 export const askFromPDF = async (req, res) => {
@@ -10,10 +10,6 @@ export const askFromPDF = async (req, res) => {
       return res.status(400).json({ message: 'Question is required' });
     }
 
-    const client = new GoogleGenerativeAI(
-      process.env.GEMINI_API_KEY
-    );
-    const model = client.getGenerativeModel({ model: process.env.MODEL });
     const schools = await SchoolDetail.find();
 
     // const fileId = await client.uploadFile({ path: STATIC_PDF_PATH });
@@ -129,8 +125,7 @@ In the response do not talk about the data fetched just answer as you are a pers
   Carefully analyze this data before proceeding. Now, answer the following question based on the given data:
 
   Question: ${question}`;
-  const result = await model.generateContent(prompt);
-  const responseText = result.response.text();
+  const responseText = await generateText(prompt);
   let cleanedResponse = responseText
   // Remove enclosing markdown code block markers
   .replace(/```json|```/g, "")
